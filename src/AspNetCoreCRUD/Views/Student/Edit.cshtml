@@ -1,0 +1,42 @@
+﻿@model AspNetCoreCRUD.Models.StudentViewModel
+@{
+    var errorMessege = TempData["errorMessage"]?.ToString();
+}
+
+<h2>Edit Student</h2>
+<hr />
+
+@if(!string.IsNullOrWhiteSpace(errorMessege))
+{
+
+       <div class="alert alert-danger">
+           <strong>Error! </strong>@errorMessege
+           <button type="button" class="btn-close float-end" data-bs-dismiss ="alert" aria-lablel="Close"/>   
+       </div>
+
+}
+
+<form action="Edit" method="post">
+     <div class="mb-3">
+        <label class="form-label">Id</label>
+        <input type="text" class="form-control" asp-for="Id"  readonly/>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Name</label>
+        <input type="text" class="form-control" asp-for="Name" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+     <div class="mb-3">
+        <label class="form-label">Age</label>
+        <input type="number" class="form-control" asp-for="Age" />
+        <span asp-validation-for="Age" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Email</label>
+        <input type="email" class="form-control" asp-for="Email" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+    <div class="d-grid">
+        <button type ="submit" class="btn btn-secondary">Update</button>
+    </div>
+</form>

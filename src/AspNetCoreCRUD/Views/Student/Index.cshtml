@@ -1,0 +1,73 @@
+﻿@model List<AspNetCoreCRUD.Models.StudentViewModel>
+
+@{
+    var successMessege = TempData["successMessage"]?.ToString();
+    var errorMessege = TempData["errorMessage"]?.ToString();
+}
+
+<h2>Student</h2>
+<hr/>
+@if(!string.IsNullOrWhiteSpace(successMessege))
+{
+    <div class="alert alert-success">
+        <strong>Success! </strong>@successMessege
+            <button type="button" class="btn-close float-end" data-bs-dismiss ="alert" />
+    </div>
+    
+}
+else if(!string.IsNullOrWhiteSpace(errorMessege))
+{
+        <div class="alert alert-danger">
+                <strong>Error! </strong>@errorMessege
+                    <button type="button" class="btn-close float-end" data-bs-dismiss ="alert" />
+        </div>
+        
+}
+
+<form>
+    <button asp-action="Add" asp-controller="Student" class="btn btn-secondary mb-3">Add Student</button>
+    <table class="table table-responive table-hover table-bordered">
+    <thead>
+        <tr class="table-active">
+            <th class="text-center">Id</th>
+            <th class="text-center">Name</th>
+            <th class="text-center">Age</th>
+            <th class="text-center">Email</th>
+            <th class="text-center">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+
+            @if(Model != null && Model.Any())
+            {
+                @foreach(var student in Model)
+                {
+                        <tr>
+                            <td>@student.Id</td>
+                            <td>@student.Name</td>
+                            <td>@student.Age</td>
+                            <td>@student.Email</td>
+                            <td>
+                                <div class="btn-group btn-group-sm">
+                                    <a asp-controller="Student" asp-action="Edit" asp-route-id="@student.Id" 
+                                    class="btn btn-primary">Edit</a>
+
+                                    <a asp-controller="Student" asp-action="Delete" asp-route-id="@student.Id" 
+                                    class="btn btn-danger">Delete</a>
+                                </div>
+                            </td>
+                        </tr>  
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="6">
+                        Database don't have student
+                    </td>
+                </tr>
+            }
+            
+    </tbody>
+</table>
+</form>
